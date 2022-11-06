@@ -15,7 +15,8 @@ export class ProductoService {
   public carrito: carritoItem[] = [];
 
   constructor() { 
-    this.products=[{product:"Azucar",
+    this.products=[{
+    product:"Azucar",
     descripcion:"Bolsa de 1k",
     photo:"https://picsum.photos/200/?random=1",
     precio:20},
