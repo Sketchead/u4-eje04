@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Producto } from '../models/producto';
+import { Producto } from './../models/producto';
 import { ProductoService } from '../services/producto.service';
 import { Router } from '@angular/router';
 @Component({
@@ -14,9 +14,8 @@ export class HomePage {
   }
 
   public getProductByName(name:string){
-    let n = this.productService.getProductByName(name);
     this.router.navigate(['view-product'],{
-      queryParams: {name: n}
+      queryParams: {name: name},
     })
   }
  
