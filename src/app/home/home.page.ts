@@ -18,5 +18,18 @@ export class HomePage {
       queryParams: {name: name},
     })
   }
+
+  public getProductByIndex(i:number){
+    this.router.navigate(['view-product'],{
+      queryParams: {pos: i},
+    })
+  }
  
+  public viewCart(){
+    this.router.navigate(['carrito'])
+  }
+
+  public addToCart(i: Producto){
+    this.productService.addToCart(i);
+  }
 }

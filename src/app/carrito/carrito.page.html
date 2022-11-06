@@ -1,9 +1,26 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>carrito</ion-title>
+    <ion-title>Carrito</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-card *ngFor="let i of carrito;">
+    <ion-row>
+      <img src="{{i.producto.photo}}" />
+      <ion-card-header>
+        <ion-card-title>{{i.producto.product}}</ion-card-title>
+        <ion-card-subtitle>Precio unitario: ${{i.producto.precio}}</ion-card-subtitle>
+        <hr>
+        {{i.producto.descripcion}} <br>
+        Cantidad: {{i.cantidad}}
+      </ion-card-header>
+    </ion-row>
+  </ion-card>
 </ion-content>
+<ion-footer>
+  <ion-chip class="ion-float-right">
+    <ion-icon name="cash-outline" color="success"></ion-icon>
+    <ion-label>Total: ${{total}}</ion-label>
+  </ion-chip>
+</ion-footer>
