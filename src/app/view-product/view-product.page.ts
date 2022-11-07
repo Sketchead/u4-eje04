@@ -14,7 +14,12 @@ export class ViewProductPage implements OnInit {
 
   ngOnInit() {
     this.aRoute.queryParams.subscribe((params) => {
-      this.product = this.productService.getProductByIndex(params.pos);
+      if(params.t){
+        this.product = this.productService.getProductByIndexCar(params.pos);
+      }else{
+        this.product = this.productService.getProductByIndex(params.pos);
+      }
+      
       console.log(this.product);
     });
   }

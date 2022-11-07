@@ -57,9 +57,9 @@ export class CarritoPage implements OnInit {
   }
 
  
-  public getProductByIndex(i:number){
+  public getProductByIndex(i){
     this.router.navigate(['view-product'],{
-      queryParams: {pos: i},
+      queryParams: {pos: i,t:1},
     })
   }
 
