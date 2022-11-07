@@ -56,13 +56,15 @@ export class CarritoPage implements OnInit {
     }
   }
 
-    ngOnInit() {
-     
-  }
+ 
   public getProductByIndex(i:number){
     this.router.navigate(['view-product'],{
       queryParams: {pos: i},
     })
+  }
+  
+
+    ngOnInit() {
   }
   
 
