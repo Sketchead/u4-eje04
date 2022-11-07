@@ -62,10 +62,9 @@ export class CarritoPage implements OnInit {
       queryParams: {pos: i},
     })
   }
-  
 
-    ngOnInit() {
+  ngOnInit() {
   }
-  
 
+  
 }
