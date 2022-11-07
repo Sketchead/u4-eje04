@@ -1,17 +1,41 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title> Blank </ion-title>
+    <ion-title> Lista de productos </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card *ngFor="let i of products;" (click)="getProductByName(i.product)">
-    <ion-card-header>
-      <ion-card-title>{{i.product}}</ion-card-title>
-      <ion-card-subtitle>{{i.precio}}</ion-card-subtitle>
-    </ion-card-header>
-    <ion-card-content> {{i.descripcion}} </ion-card-content>
-    <img src="{{i.photo}}" />
-    <ion-button> <ion-icon name="cart"></ion-icon></ion-button>
-  </ion-card>
+  <ng-container *ngFor="let i of products; let ind=index">
+    <ion-card>
+      <ion-row (click)="getProductByIndex(ind)">
+        <img src="{{i.photo}}" width="200" height="200" />
+        <ion-card-header>
+          <ion-card-title>{{i.product}}</ion-card-title>
+          <ion-card-subtitle>Precio: ${{i.precio}}</ion-card-subtitle>
+          <hr />
+          Descripción: <br />
+          {{i.descripcion}}
+        </ion-card-header>
+        <ion-button
+          id="addToCartBtn"
+          (click)="$event.stopPropagation();addToCart(i)"
+          ><ion-icon name="add"></ion-icon
+        ></ion-button>
+      </ion-row>
+    </ion-card>
+  </ng-container>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button (click)="viewCart()">
+        <ion-icon name="cart"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button (click)="addProduct()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
 </ion-content>
