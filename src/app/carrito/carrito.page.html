@@ -9,7 +9,7 @@
 
 <ion-content>
   <ion-card *ngFor="let i of carrito; let ind=index">
-    <ion-row (click)="getProductByIndex(ind)">
+    <ion-row (click)="getProductById(i.producto.id)">
       <img src="{{i.producto.photo}}" width="200" height="200"/>
       <ion-card-header>
         <ion-card-title>{{i.producto.product}}</ion-card-title>

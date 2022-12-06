@@ -11,18 +11,14 @@ import { AlertController } from '@ionic/angular';
 export class HomePage {
   public products: Producto[];
   constructor(public productService: ProductoService, private router: Router, private alertCtrl: AlertController ) {
-      this.products=this.productService.getProducts();
-  }
-
-  public getProductByName(name:string){
-    this.router.navigate(['view-product'],{
-      queryParams: {name: name},
+    this.productService.getProducts().subscribe(res => {
+      this.products = res;
     })
   }
 
-  public getProductByIndex(i:number){
+  public getProductById(id:string){
     this.router.navigate(['view-product'],{
-      queryParams: {pos: i},
+      queryParams: {pos: id},
     })
   }
  
@@ -65,7 +61,7 @@ export class HomePage {
         {
           text: 'Crear',
           handler: (inputs: {product: string, precio: number,descripcion:string,photo:string}) => {
-            this.products.push({product:inputs.product, precio:inputs.precio, descripcion:inputs.descripcion, photo:inputs.photo});
+            this.productService.newProduct({product:inputs.product, precio:inputs.precio, descripcion:inputs.descripcion, photo:inputs.photo});
           }
         }
       ]

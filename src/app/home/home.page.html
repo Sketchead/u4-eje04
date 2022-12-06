@@ -7,7 +7,7 @@
 <ion-content [fullscreen]="true">
   <ng-container *ngFor="let i of products; let ind=index">
     <ion-card>
-      <ion-row (click)="getProductByIndex(ind)">
+      <ion-row (click)="getProductById(i.id)">
         <img src="{{i.photo}}" width="200" height="200" />
         <ion-card-header>
           <ion-card-title>{{i.product}}</ion-card-title>

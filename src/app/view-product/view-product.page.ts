@@ -10,17 +10,20 @@ import { ActivatedRoute } from '@angular/router';
 export class ViewProductPage implements OnInit {
   public product: Producto;
 
-  constructor(private productService: ProductoService, private aRoute: ActivatedRoute) { }
+  constructor(private productService: ProductoService, private aRoute: ActivatedRoute) { 
+    this.product = {
+      product: "",
+      descripcion: "",
+      photo: "",
+      precio: 0
+    }
+  }
 
   ngOnInit() {
     this.aRoute.queryParams.subscribe((params) => {
-      if(params.t){
-        this.product = this.productService.getProductByIndexCar(params.pos);
-      }else{
-        this.product = this.productService.getProductByIndex(params.pos);
-      }
-      
-      console.log(this.product);
+        this.productService.getProductById(params.pos).subscribe(i => {
+          this.product = i as Producto
+        })
     });
   }
 

@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Producto } from '../models/producto';
+import {first, map} from 'rxjs/operators';
+import {AngularFirestore} from '@angular/fire/compat/firestore';
+import { Observable } from 'rxjs';
 
 export interface carritoItem{
   producto: Producto,
@@ -14,45 +17,32 @@ export class ProductoService {
   public products: Producto[];
   public carrito: carritoItem[] = [];
 
-  constructor() { 
-    this.products=[{
-    product:"Azucar",
-    descripcion:"Bolsa de 1k",
-    photo:"https://picsum.photos/200/?random=1",
-    precio:20},
-    {product:"Leche",
-      descripcion:"De 1 litro ",
-    photo:"https://picsum.photos/200/?random=2",
-    precio:32},
-    {product:"Galletas",
-      descripcion:"De Chocolate",
-    photo:"https://picsum.photos/200/?id=3",
-    precio:15},
-  ];
+  constructor(private firestore: AngularFirestore) { 
+    this.products=[];
   }
 
   public getProducts(){
-    return this.products
+    return this.firestore.collection('products').snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as Producto;
+          const id = a.payload.doc.id;
+          return {id,...data};
+        });
+      }));
   }
 
+  public newProduct(product: Producto){
+    this.firestore.collection('products').add(product);
+  }
+
+  public getProductById(id:string){
+    return this.firestore.collection('products').doc(id).valueChanges();
+  }
+
+  
   public getCart(){
     return this.carrito
-  }
-
-  public getProductByIndex(i:number): Producto{
-    return this.products[i];
-  }
-
-  public getProductByIndexCar(i:number): Producto{
-    return this.carrito[i].producto;
-  }
-
-  public getProductByName(name:string): Producto{
-    let i: Producto = this.products.find((products)=>{  //formula de flecha 
-        return products.product===name;
-      }
-    );
-   return i; //esto hace que solo se retorne el alumno que nosotros seleccionamos. 
   }
 
   public addToCart(p: Producto){
@@ -69,7 +59,7 @@ export class ProductoService {
       }
     }else{
       this.carrito.push({producto: p, cantidad: 1})
-    }
+    } 
   }
 
   public removeFromCart(i: number){
@@ -81,10 +71,3 @@ export class ProductoService {
   }
   
 }
-/* 
-public getStudentByControlNumber(controlnumber: string): Student {
-  let item: Student = this.students.find((student)=> {
-    return student.controlnumber===controlnumber;
-  });
-  return item;
-} */
